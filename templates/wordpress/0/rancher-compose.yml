@@ -5,25 +5,25 @@ catalog:
   description: "WordPress Stack"
   minimum_rancher_version: v0.51.0
   questions:
-    - variable: wp_url
+    - variable: WP_URL
       description: "WordPress URL"
       label: "WordPress URL (no HTTP)"
       required: true
       default: ""
       type: "string"
-    - variable: domain
+    - variable: DOMAIN
       description: "Domain Name"
       label: "Domain Name"
       required: true
       default: ""
       type: "string"
-    - variable: client
+    - variable: CLIENT
       description: "Client Name"
       label: "Client Name"
       required: true
       default: ""
       type: "string"
-    - variable: Email
+    - variable: EMAIL
       description: "Email"
       label: "Email"
       required: true
