@@ -1,0 +1,170 @@
+version: '2'
+volumes:
+  wp_db:
+    external: true
+    driver: local
+  letsencrypt:
+    external: true
+    driver: local
+  wp_data:
+    external: true
+    driver: local
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+    - mysql:db
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  pydio:
+    image: gabrielcossette/pydio-docker
+    environment:
+      PGID: 82
+      PUID: 82
+      PYDIO_PASSWORD_FILE: /run/secrets/${CLIENT}_PW
+      PYDIO_HOST: mysql
+      PYDIO_DB_NAME: pydio
+      PYDIO_DB_USER: root
+      PYDIO_DB_PASSWORD_FILE: /run/secrets/DB_Root
+    volumes:
+    - pydio:/data
+    - wp_data:/wp
+    secrets:
+    - ${CLIENT}_PW
+    - DB_Root
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  nginx:
+    image: raulr/nginx-wordpress
+    environment:
+      POST_MAX_SIZE: 128m
+    volumes:
+    - wp_data:/var/www/html
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  wordpress:
+    image: gabrielcossette/wordpress-docker
+    environment:
+      USER_FILE: /run/secrets/WP_User
+      PASS_FILE: /run/secrets/WP_Pass
+      SITE: ${WP_URL}
+      EMAIL: ${EMAIL}
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
+    volumes:
+    - wp_data:/var/www/html
+    secrets:
+    - DB_Root
+    - WP_User
+    - WP_Pass
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  LB:
+    image: rancher/lb-service-haproxy:v0.7.15
+    ports:
+    - 80:80/tcp
+    - 443:443/tcp
+    - 2222:2222/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  mysql:
+    image: gabrielcossette/mariadb-docker
+    environment:
+      MYSQL_DATABASE: pydio
+      MYSQL_USER: admin
+      MYSQL_PASSWORD_FILE: /run/secrets/${CLIENT}_PW
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_Root
+    volumes:
+    - wp_db:/var/lib/mysql
+    secrets:
+    - ${CLIENT}_PW
+    - DB_Root
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  mysql-backup:
+    image: gabrielcossette/backup-all-mysql
+    environment:
+      BACKUP_INTERVAL: 86400
+      BACKUP_FIRSTDELAY: 60
+    links:
+    - mysql
+    restart: always
+    volumes:
+    - /root/backup:/var/dbdumps
+    - /etc/localtime:/etc/localtime
+    - /etc/timezone:/etc/timezone
+    secrets:
+    - DB_Root
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  sftp:
+    image: gabrielcossette/sftp-docker
+    environment:
+      USER: admin
+      PASS_FILE: /run/secrets/${CLIENT}_PW
+      UID: 82
+    volumes:
+    - wp_data:/home/admin/wp
+    secrets:
+    - ${CLIENT}_PW
+    command:
+    - admin::82
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  letsencrypt:
+    image: janeczku/rancher-letsencrypt:v0.5.0
+    environment:
+      API_VERSION: Production
+      AWS_ACCESS_KEY: ''
+      AWS_SECRET_KEY: ''
+      AZURE_CLIENT_ID: ''
+      AZURE_CLIENT_SECRET: ''
+      AZURE_RESOURCE_GROUP: ''
+      AZURE_SUBSCRIPTION_ID: ''
+      AZURE_TENANT_ID: ''
+      CERT_NAME: ${CLIENT}
+      CLOUDFLARE_EMAIL: ''
+      CLOUDFLARE_KEY: ''
+      DNSIMPLE_EMAIL: ''
+      DNSIMPLE_KEY: ''
+      DNS_RESOLVERS: 9.9.9.9:53
+      DOMAINS: ${WP_URL}, db.${DOMAIN}, files.${DOMAIN}
+      DO_ACCESS_TOKEN: ''
+      DYN_CUSTOMER_NAME: ''
+      DYN_PASSWORD: ''
+      DYN_USER_NAME: ''
+      EMAIL: ${EMAIL}
+      EULA: 'Yes'
+      GANDI_API_KEY: ''
+      OVH_APPLICATION_KEY: ''
+      OVH_APPLICATION_SECRET: ''
+      OVH_CONSUMER_KEY: ''
+      PROVIDER: HTTP
+      PUBLIC_KEY_TYPE: RSA-2048
+      RENEWAL_PERIOD_DAYS: '20'
+      RENEWAL_TIME: '12'
+      VULTR_API_KEY: ''
+    volumes:
+    - /var/lib/rancher:/var/lib/rancher
+    - letsencrypt:/etc/letsencrypt
+    secrets:
+    - Admin_Email
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  redis:
+    image: redis
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always

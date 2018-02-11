@@ -1,0 +1,108 @@
+version: '2'
+catalog:
+  name: "WP Stack"
+  version: "v0.1"
+  description: "WordPress Stack"
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: wp_url
+      description: "WordPress URL"
+      label: "WordPress URL (no HTTP)"
+      required: true
+      default: ""
+      type: "string"
+    - variable: domain
+      description: "Domain Name"
+      label: "Domain Name"
+      required: true
+      default: ""
+      type: "string"
+    - variable: client
+      description: "Client Name"
+      label: "Client Name"
+      required: true
+      default: ""
+      type: "string"
+    - variable: Email
+      description: "Email"
+      label: "Email"
+      required: true
+      default: ""
+      type: "string"
+services:
+  phpmyadmin:
+    scale: 1
+    start_on_create: true
+  pydio:
+    scale: 1
+    start_on_create: true
+  nginx:
+    scale: 1
+    start_on_create: true
+  wordpress:
+    scale: 1
+    start_on_create: true
+  LB:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      config: |-
+        frontend 80
+        acl lepath path_beg -i /.well-known/acme-challenge
+        redirect scheme https code 302 if  !lepath !{ ssl_fc }
+      default_cert: ${CLIENT}
+      port_rules:
+      - hostname: '*.${DOMAIN}'
+        priority: 1
+        protocol: http
+        service: letsencrypt
+        source_port: 80
+        target_port: 80
+      - hostname: ${WP_URL}
+        priority: 2
+        protocol: https
+        service: nginx
+        source_port: 443
+        target_port: 80
+      - hostname: files.${DOMAIN}
+        priority: 3
+        protocol: https
+        service: pydio
+        source_port: 443
+        target_port: 80
+      - hostname: db.${DOMAIN}
+        priority: 4
+        protocol: https
+        service: phpmyadmin
+        source_port: 443
+        target_port: 80
+      - priority: 5
+        protocol: tcp
+        service: sftp
+        source_port: 2222
+        target_port: 22
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 42
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 60000
+  mysql:
+    scale: 1
+    start_on_create: true
+  mysql-backup:
+    scale: 1
+    start_on_create: true
+  sftp:
+    scale: 1
+    start_on_create: true
+  letsencrypt:
+    scale: 1
+    start_on_create: true
+  redis:
+    scale: 1
+    start_on_create: true
