@@ -50,7 +50,7 @@ services:
     environment:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
-      SITE: ${WP_URL}
+      SITE: https://${WP_URL}
       EMAIL: ${EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
     volumes:
@@ -156,8 +156,6 @@ services:
     volumes:
     - /var/lib/rancher:/var/lib/rancher
     - letsencrypt:/etc/letsencrypt
-    secrets:
-    - Admin_Email
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
