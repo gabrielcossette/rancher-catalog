@@ -51,6 +51,8 @@ services:
       io.rancher.container.pull_image: always
   nginx2:
     image: raulr/nginx-wordpress
+    links:
+    - wordpress2:wordpress
     environment:
       POST_MAX_SIZE: 128m
     volumes:
