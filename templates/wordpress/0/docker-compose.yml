@@ -55,7 +55,7 @@ services:
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       SSMTP_root: ${EMAIL_FROM}
       SSMTP_mailhub: ${EMAIL_SERVER}
-      SSMTP_hostname: wordpress
+      SSMTP_hostname: ${WP_URL}
       SSMTP_FromLineOverride: NO
       SSMTP_AuthUser: ${EMAIL_USER}
       SSMTP_AuthPass_FILE: =/run/secrets/${CLIENT}_Email_PW
