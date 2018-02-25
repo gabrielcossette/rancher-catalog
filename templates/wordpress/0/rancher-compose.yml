@@ -23,9 +23,27 @@ catalog:
       required: true
       default: ""
       type: "string"
-    - variable: EMAIL
-      description: "Email"
-      label: "Email"
+    - variable: WP_EMAIL
+      description: "WordPress Email"
+      label: "WP Email"
+      required: true
+      default: ""
+      type: "string"
+    - variable: EMAIL_USER
+      description: "Email User"
+      label: "Email User"
+      required: true
+      default: ""
+      type: "string"
+    - variable: EMAIL_SERVER
+      description: "Email Server"
+      label: "Email Server"
+      required: true
+      default: "mail.gandi.net:587"
+      type: "string"
+    - variable: EMAIL_FROM
+      description: "Email FROM"
+      label: "Email FROM"
       required: true
       default: ""
       type: "string"
