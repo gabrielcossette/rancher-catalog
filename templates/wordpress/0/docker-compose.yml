@@ -58,7 +58,7 @@ services:
       SSMTP_hostname: ${WP_URL}
       SSMTP_FromLineOverride: NO
       SSMTP_AuthUser: ${EMAIL_USER}
-      SSMTP_AuthPass_FILE: =/run/secrets/${CLIENT}_Email_PW
+      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
       SSMTP_UseSTARTTLS: YES
     volumes:
     - wp_data:/var/www/html
