@@ -12,6 +12,15 @@ volumes:
   wp_data2:
     external: true
     driver: local
+  wp_data3:
+    external: true
+    driver: local
+  wp_data4:
+    external: true
+    driver: local
+  wp_data5:
+    external: true
+    driver: local
 services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -34,6 +43,9 @@ services:
     - pydio:/data
     - wp_data:/wp
     - wp_data2:/wp2
+    - wp_data3:/wp3
+    - wp_data4:/wp4
+    - wp_data5:/wp5
     secrets:
     - ${CLIENT}_PW
     - DB_Root
@@ -57,6 +69,39 @@ services:
       POST_MAX_SIZE: 128m
     volumes:
     - wp_data2:/var/www/html
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  nginx3:
+    image: raulr/nginx-wordpress
+    links:
+    - wordpress3:wordpress
+    environment:
+      POST_MAX_SIZE: 128m
+    volumes:
+    - wp_data3:/var/www/html
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  nginx4:
+    image: raulr/nginx-wordpress
+    links:
+    - wordpress4:wordpress
+    environment:
+      POST_MAX_SIZE: 128m
+    volumes:
+    - wp_data4:/var/www/html
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  nginx5:
+    image: raulr/nginx-wordpress
+    links:
+    - wordpress5:wordpress
+    environment:
+      POST_MAX_SIZE: 128m
+    volumes:
+    - wp_data5:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
@@ -103,6 +148,84 @@ services:
       SSMTP_UseSTARTTLS: YES
     volumes:
     - wp_data2:/var/www/html
+    secrets:
+    - DB_Root
+    - WP_User
+    - WP_Pass
+    - ${CLIENT}_Email_PW
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  wordpress3:
+    image: gabrielcossette/wordpress-docker
+    environment:
+      USER_FILE: /run/secrets/WP_User
+      PASS_FILE: /run/secrets/WP_Pass
+      SITE: https://${WP_URL3}
+      EMAIL: ${EMAIL}
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
+      WORDPRESS_DB_NAME: wordpress3
+      SSMTP_root: ${EMAIL_FROM}
+      SSMTP_mailhub: ${EMAIL_SERVER}
+      SSMTP_hostname: ${WP_URL}
+      SSMTP_FromLineOverride: NO
+      SSMTP_AuthUser: ${EMAIL_USER}
+      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
+      SSMTP_UseSTARTTLS: YES
+    volumes:
+    - wp_data3:/var/www/html
+    secrets:
+    - DB_Root
+    - WP_User
+    - WP_Pass
+    - ${CLIENT}_Email_PW
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  wordpress4:
+    image: gabrielcossette/wordpress-docker
+    environment:
+      USER_FILE: /run/secrets/WP_User
+      PASS_FILE: /run/secrets/WP_Pass
+      SITE: https://${WP_URL4}
+      EMAIL: ${EMAIL}
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
+      WORDPRESS_DB_NAME: wordpress4
+      SSMTP_root: ${EMAIL_FROM}
+      SSMTP_mailhub: ${EMAIL_SERVER}
+      SSMTP_hostname: ${WP_URL}
+      SSMTP_FromLineOverride: NO
+      SSMTP_AuthUser: ${EMAIL_USER}
+      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
+      SSMTP_UseSTARTTLS: YES
+    volumes:
+    - wp_data4:/var/www/html
+    secrets:
+    - DB_Root
+    - WP_User
+    - WP_Pass
+    - ${CLIENT}_Email_PW
+    labels:
+      io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
+      io.rancher.container.pull_image: always
+  wordpress5:
+    image: gabrielcossette/wordpress-docker
+    environment:
+      USER_FILE: /run/secrets/WP_User
+      PASS_FILE: /run/secrets/WP_Pass
+      SITE: https://${WP_URL5}
+      EMAIL: ${EMAIL}
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
+      WORDPRESS_DB_NAME: wordpress5
+      SSMTP_root: ${EMAIL_FROM}
+      SSMTP_mailhub: ${EMAIL_SERVER}
+      SSMTP_hostname: ${WP_URL}
+      SSMTP_FromLineOverride: NO
+      SSMTP_AuthUser: ${EMAIL_USER}
+      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
+      SSMTP_UseSTARTTLS: YES
+    volumes:
+    - wp_data5:/var/www/html
     secrets:
     - DB_Root
     - WP_User
@@ -163,6 +286,9 @@ services:
     volumes:
     - wp_data:/home/admin/wp
     - wp_data2:/home/admin/wp2
+    - wp_data3:/home/admin/wp3
+    - wp_data4:/home/admin/wp4
+    - wp_data5:/home/admin/wp5
     secrets:
     - ${CLIENT}_PW
     command:

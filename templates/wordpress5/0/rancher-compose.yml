@@ -17,6 +17,24 @@ catalog:
       required: true
       default: ""
       type: "string"
+    - variable: WP_URL3
+      description: "WordPress URL 3"
+      label: "WordPress URL (no HTTP) 3"
+      required: true
+      default: ""
+      type: "string"
+    - variable: WP_URL4
+      description: "WordPress URL 4"
+      label: "WordPress URL (no HTTP) 4"
+      required: true
+      default: ""
+      type: "string"
+    - variable: WP_URL5
+      description: "WordPress URL 5"
+      label: "WordPress URL (no HTTP) 5"
+      required: true
+      default: ""
+      type: "string"
     - variable: DOMAIN
       description: "Domain Name"
       label: "Domain Name"
@@ -101,19 +119,37 @@ services:
         service: nginx2
         source_port: 443
         target_port: 80
-      - hostname: files.${DOMAIN}
+      - hostname: ${WP_URL3}
         priority: 4
+        protocol: https
+        service: nginx3
+        source_port: 443
+        target_port: 80
+      - hostname: ${WP_URL4}
+        priority: 5
+        protocol: https
+        service: nginx4
+        source_port: 443
+        target_port: 80
+      - hostname: ${WP_URL5}
+        priority: 6
+        protocol: https
+        service: nginx5
+        source_port: 443
+        target_port: 80
+      - hostname: files.${DOMAIN}
+        priority: 7
         protocol: https
         service: pydio
         source_port: 443
         target_port: 80
       - hostname: db.${DOMAIN}
-        priority: 5
+        priority: 8
         protocol: https
         service: phpmyadmin
         source_port: 443
         target_port: 80
-      - priority: 6
+      - priority: 9
         protocol: tcp
         service: sftp
         source_port: 2222
