@@ -111,7 +111,7 @@ services:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
       SITE: https://${WP_URL}
-      EMAIL: ${EMAIL}
+      EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       SSMTP_root: ${EMAIL_FROM}
       SSMTP_mailhub: ${EMAIL_SERVER}
@@ -136,7 +136,7 @@ services:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
       SITE: https://${WP_URL2}
-      EMAIL: ${EMAIL}
+      EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress2
       SSMTP_root: ${EMAIL_FROM}
@@ -162,7 +162,7 @@ services:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
       SITE: https://${WP_URL3}
-      EMAIL: ${EMAIL}
+      EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress3
       SSMTP_root: ${EMAIL_FROM}
@@ -188,7 +188,7 @@ services:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
       SITE: https://${WP_URL4}
-      EMAIL: ${EMAIL}
+      EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress4
       SSMTP_root: ${EMAIL_FROM}
@@ -214,7 +214,7 @@ services:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
       SITE: https://${WP_URL5}
-      EMAIL: ${EMAIL}
+      EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress5
       SSMTP_root: ${EMAIL_FROM}

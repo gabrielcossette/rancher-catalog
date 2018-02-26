@@ -84,10 +84,28 @@ services:
   nginx2:
     scale: 1
     start_on_create: true
+  nginx3:
+    scale: 1
+    start_on_create: true
+  nginx4:
+    scale: 1
+    start_on_create: true
+  nginx5:
+    scale: 1
+    start_on_create: true
   wordpress:
     scale: 1
     start_on_create: true
   wordpress2:
+    scale: 1
+    start_on_create: true
+  wordpress3:
+    scale: 1
+    start_on_create: true
+  wordpress4:
+    scale: 1
+    start_on_create: true
+  wordpress5:
     scale: 1
     start_on_create: true
   LB:
