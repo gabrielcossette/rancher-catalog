@@ -1,15 +1,18 @@
 version: '2'
 volumes:
-  wp_db:
+  ${CLIENT}_wp_db:
     external: true
     driver: local
-  letsencrypt:
+  ${CLIENT}_letsencrypt:
     external: true
     driver: local
-  wp_data:
+  ${CLIENT}_wp_data:
     external: true
     driver: local
-  wp_data2:
+  ${CLIENT}_wp_data2:
+    external: true
+    driver: local
+  ${CLIENT}_pydio:
     external: true
     driver: local
 services:
@@ -31,9 +34,9 @@ services:
       PYDIO_DB_USER: root
       PYDIO_DB_PASSWORD_FILE: /run/secrets/DB_Root
     volumes:
-    - pydio:/data
-    - wp_data:/wp
-    - wp_data2:/wp2
+    - ${CLIENT}_pydio:/data
+    - ${CLIENT}_wp_data:/wp
+    - ${CLIENT}_wp_data2:/wp2
     secrets:
     - ${CLIENT}_PW
     - DB_Root
@@ -45,7 +48,7 @@ services:
     environment:
       POST_MAX_SIZE: 128m
     volumes:
-    - wp_data:/var/www/html
+    - ${CLIENT}_wp_data:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
@@ -56,7 +59,7 @@ services:
     environment:
       POST_MAX_SIZE: 128m
     volumes:
-    - wp_data2:/var/www/html
+    - ${CLIENT}_wp_data2:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
@@ -76,7 +79,7 @@ services:
       SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
       SSMTP_UseSTARTTLS: YES
     volumes:
-    - wp_data:/var/www/html
+    - ${CLIENT}_wp_data:/var/www/html
     secrets:
     - DB_Root
     - WP_User
@@ -102,7 +105,7 @@ services:
       SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
       SSMTP_UseSTARTTLS: YES
     volumes:
-    - wp_data2:/var/www/html
+    - ${CLIENT}_wp_data2:/var/www/html
     secrets:
     - DB_Root
     - WP_User
@@ -130,7 +133,7 @@ services:
       MYSQL_PASSWORD_FILE: /run/secrets/${CLIENT}_PW
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_Root
     volumes:
-    - wp_db:/var/lib/mysql
+    - ${CLIENT}_wp_db:/var/lib/mysql
     secrets:
     - ${CLIENT}_PW
     - DB_Root
@@ -161,8 +164,8 @@ services:
       PASS_FILE: /run/secrets/${CLIENT}_PW
       UID: 82
     volumes:
-    - wp_data:/home/admin/wp
-    - wp_data2:/home/admin/wp2
+    - ${CLIENT}_wp_data:/home/admin/wp
+    - ${CLIENT}_wp_data2:/home/admin/wp2
     secrets:
     - ${CLIENT}_PW
     command:
@@ -205,7 +208,7 @@ services:
       VULTR_API_KEY: ''
     volumes:
     - /var/lib/rancher:/var/lib/rancher
-    - letsencrypt:/etc/letsencrypt
+    - ${CLIENT}_letsencrypt:/etc/letsencrypt
     labels:
       io.rancher.container.agent.role: environment
       io.rancher.container.create_agent: 'true'
