@@ -56,53 +56,58 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx:
-    image: raulr/nginx-wordpress
+    image: gabrielcossette/nginx-wordpress-docker
     environment:
       POST_MAX_SIZE: 128m
+      SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx2:
-    image: raulr/nginx-wordpress
+    image: gabrielcossette/nginx-wordpress-docker
     links:
     - wordpress2:wordpress
     environment:
       POST_MAX_SIZE: 128m
+      SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data2:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx3:
-    image: raulr/nginx-wordpress
+    image: gabrielcossette/nginx-wordpress-docker
     links:
     - wordpress3:wordpress
     environment:
       POST_MAX_SIZE: 128m
+      SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data3:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx4:
-    image: raulr/nginx-wordpress
+    image: gabrielcossette/nginx-wordpress-docker
     links:
     - wordpress4:wordpress
     environment:
       POST_MAX_SIZE: 128m
+      SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data4:/var/www/html
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx5:
-    image: raulr/nginx-wordpress
+    image: gabrielcossette/nginx-wordpress-docker
     links:
     - wordpress5:wordpress
     environment:
       POST_MAX_SIZE: 128m
+      SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data5:/var/www/html
     labels:
