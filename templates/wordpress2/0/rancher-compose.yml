@@ -45,7 +45,13 @@ catalog:
       description: "Email Server"
       label: "Email Server"
       required: true
-      default: "mail.gandi.net:587"
+      default: "mail.gandi.net"
+      type: "string"
+    - variable: EMAIL_PORT
+      description: "Email Port"
+      label: "Email Port"
+      required: true
+      default: "587"
       type: "string"
     - variable: EMAIL_FROM
       description: "Email FROM"

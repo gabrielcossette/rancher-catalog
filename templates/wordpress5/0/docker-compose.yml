@@ -121,13 +121,11 @@ services:
       SITE: https://${WP_URL}
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
-      SSMTP_root: ${EMAIL_FROM}
-      SSMTP_mailhub: ${EMAIL_SERVER}
-      SSMTP_hostname: ${WP_URL}
-      SSMTP_FromLineOverride: YES
-      SSMTP_AuthUser: ${EMAIL_USER}
-      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
-      SSMTP_UseSTARTTLS: YES
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PW: /run/secrets/${CLIENT}_Email_PW
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     secrets:
@@ -147,13 +145,11 @@ services:
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress2
-      SSMTP_root: ${EMAIL_FROM}
-      SSMTP_mailhub: ${EMAIL_SERVER}
-      SSMTP_hostname: ${WP_URL}
-      SSMTP_FromLineOverride: YES
-      SSMTP_AuthUser: ${EMAIL_USER}
-      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
-      SSMTP_UseSTARTTLS: YES
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PW: /run/secrets/${CLIENT}_Email_PW
     volumes:
     - ${CLIENT}_wp_data2:/var/www/html
     secrets:
@@ -173,13 +169,11 @@ services:
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress3
-      SSMTP_root: ${EMAIL_FROM}
-      SSMTP_mailhub: ${EMAIL_SERVER}
-      SSMTP_hostname: ${WP_URL}
-      SSMTP_FromLineOverride: YES
-      SSMTP_AuthUser: ${EMAIL_USER}
-      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
-      SSMTP_UseSTARTTLS: YES
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PW: /run/secrets/${CLIENT}_Email_PW
     volumes:
     - ${CLIENT}_wp_data3:/var/www/html
     secrets:
@@ -199,13 +193,11 @@ services:
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress4
-      SSMTP_root: ${EMAIL_FROM}
-      SSMTP_mailhub: ${EMAIL_SERVER}
-      SSMTP_hostname: ${WP_URL}
-      SSMTP_FromLineOverride: YES
-      SSMTP_AuthUser: ${EMAIL_USER}
-      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
-      SSMTP_UseSTARTTLS: YES
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PW: /run/secrets/${CLIENT}_Email_PW
     volumes:
     - ${CLIENT}_wp_data4:/var/www/html
     secrets:
@@ -225,13 +217,11 @@ services:
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
       WORDPRESS_DB_NAME: wordpress5
-      SSMTP_root: ${EMAIL_FROM}
-      SSMTP_mailhub: ${EMAIL_SERVER}
-      SSMTP_hostname: ${WP_URL}
-      SSMTP_FromLineOverride: YES
-      SSMTP_AuthUser: ${EMAIL_USER}
-      SSMTP_AuthPass_FILE: /run/secrets/${CLIENT}_Email_PW
-      SSMTP_UseSTARTTLS: YES
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_SERVER: ${EMAIL_SERVER}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PW: /run/secrets/${CLIENT}_Email_PW
     volumes:
     - ${CLIENT}_wp_data5:/var/www/html
     secrets:
