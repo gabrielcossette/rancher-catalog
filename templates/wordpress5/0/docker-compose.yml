@@ -58,7 +58,7 @@ services:
   nginx:
     image: gabrielcossette/nginx-wordpress-docker
     environment:
-      POST_MAX_SIZE: 128m
+      POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
@@ -70,7 +70,7 @@ services:
     links:
     - wordpress2:wordpress
     environment:
-      POST_MAX_SIZE: 128m
+      POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data2:/var/www/html
@@ -82,7 +82,7 @@ services:
     links:
     - wordpress3:wordpress
     environment:
-      POST_MAX_SIZE: 128m
+      POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data3:/var/www/html
@@ -94,7 +94,7 @@ services:
     links:
     - wordpress4:wordpress
     environment:
-      POST_MAX_SIZE: 128m
+      POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data4:/var/www/html
@@ -106,7 +106,7 @@ services:
     links:
     - wordpress5:wordpress
     environment:
-      POST_MAX_SIZE: 128m
+      POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
     volumes:
     - ${CLIENT}_wp_data5:/var/www/html
