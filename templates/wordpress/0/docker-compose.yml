@@ -61,7 +61,7 @@ services:
       EMAIL_SERVER: ${EMAIL_SERVER}
       EMAIL_PORT: ${EMAIL_PORT}
       EMAIL_USER: ${EMAIL_USER}
-      EMAIL_PW: /run/secrets/${CLIENT}_Email_PW
+      EMAIL_PW_FILE: /run/secrets/${CLIENT}_Email_PW
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     secrets:
