@@ -44,7 +44,7 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx:
-    image: gabrielcossette/nginx-wordpress-docker
+    image: gabrielcossette/nginx-ee-docker
     environment:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
@@ -54,7 +54,7 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   nginx2:
-    image: gabrielcossette/nginx-wordpress-docker
+    image: gabrielcossette/nginx-ee-docker
     links:
     - wordpress2:wordpress
     environment:
