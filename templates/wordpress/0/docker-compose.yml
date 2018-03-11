@@ -44,6 +44,7 @@ services:
     environment:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
+      WP_CONTAINER_NAME:wordpress
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     labels:
@@ -57,6 +58,7 @@ services:
       SITE: https://${WP_URL}
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
+      WORDPRESS_DB_NAME: wordpress
       EMAIL_FROM: ${EMAIL_FROM}
       EMAIL_SERVER: ${EMAIL_SERVER}
       EMAIL_PORT: ${EMAIL_PORT}
