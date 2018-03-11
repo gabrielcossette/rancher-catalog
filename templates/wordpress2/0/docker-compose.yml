@@ -48,6 +48,7 @@ services:
     environment:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
+      WP_CONTAINER_NAME: wordpress
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     labels:
@@ -55,8 +56,6 @@ services:
       io.rancher.container.pull_image: always
   nginx2:
     image: gabrielcossette/nginx-ee-docker
-    links:
-    - wordpress2:wordpress
     environment:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}

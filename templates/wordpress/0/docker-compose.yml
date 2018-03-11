@@ -44,7 +44,7 @@ services:
     environment:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
-      WP_CONTAINER_NAME:wordpress
+      WP_CONTAINER_NAME: wordpress
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     labels:
