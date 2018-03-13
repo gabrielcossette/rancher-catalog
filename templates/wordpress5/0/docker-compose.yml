@@ -61,6 +61,7 @@ services:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
       WP_CONTAINER_NAME: wordpress
+      CACHE: redis
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     labels:
@@ -74,6 +75,7 @@ services:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
       WP_CONTAINER_NAME: wordpress2
+      CACHE: redis
     volumes:
     - ${CLIENT}_wp_data2:/var/www/html
     labels:
@@ -87,6 +89,7 @@ services:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
       WP_CONTAINER_NAME: wordpress3
+      CACHE: redis
     volumes:
     - ${CLIENT}_wp_data3:/var/www/html
     labels:
@@ -100,6 +103,7 @@ services:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
       WP_CONTAINER_NAME: wordpress4
+      CACHE: redis
     volumes:
     - ${CLIENT}_wp_data4:/var/www/html
     labels:
@@ -113,6 +117,7 @@ services:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
       WP_CONTAINER_NAME: wordpress5
+      CACHE: redis
     volumes:
     - ${CLIENT}_wp_data5:/var/www/html
     labels:

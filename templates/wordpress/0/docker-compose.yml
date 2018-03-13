@@ -45,6 +45,7 @@ services:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
       WP_CONTAINER_NAME: wordpress
+      CACHE: redis
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     labels:
