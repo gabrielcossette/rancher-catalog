@@ -26,7 +26,7 @@ services:
       PGID: 82
       PUID: 82
       PYDIO_PASSWORD_FILE: /run/secrets/${CLIENT}_PW
-      PYDIO_HOST: mysql
+      PYDIO_DB_HOST: mysql
       PYDIO_DB_NAME: pydio
       PYDIO_DB_USER: root
       PYDIO_DB_PASSWORD_FILE: /run/secrets/DB_Root
