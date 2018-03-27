@@ -17,12 +17,13 @@ volumes:
     driver: local
 services:
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: gabrielcossette/phpmyadmin-docker
     links:
     - mysql:db
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: phpmyadmin_prod
   pydio:
     image: gabrielcossette/pydio-docker
     environment:
@@ -43,6 +44,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: pydio_prod
   nginx:
     image: gabrielcossette/nginx-ee-docker
     environment:
@@ -55,6 +57,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: nginx_prod
   nginx2:
     image: gabrielcossette/nginx-ee-docker
     environment:
@@ -67,6 +70,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: nginx_prod
   wordpress:
     image: gabrielcossette/wordpress-docker
     environment:
@@ -91,6 +95,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: wordpress_prod
   wordpress2:
     image: gabrielcossette/wordpress-docker
     environment:
@@ -115,6 +120,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: wordpress_prod
   LB:
     image: rancher/lb-service-haproxy:v0.7.15
     ports:
@@ -141,6 +147,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: mysql_prod
   mysql-backup:
     image: gabrielcossette/backup-all-mysql
     environment:
@@ -158,6 +165,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: mysql-backup_prod
   sftp:
     image: gabrielcossette/sftp-docker:alpine-3.7
     environment:
@@ -174,6 +182,7 @@ services:
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: sftp_prod
   letsencrypt:
     image: janeczku/rancher-letsencrypt:v0.5.0
     environment:
@@ -216,7 +225,8 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   redis:
-    image: redis
+    image: gabrielcossette/redisp-docker
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
+      Upgrade: redis_prod
