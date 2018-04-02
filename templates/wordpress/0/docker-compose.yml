@@ -125,7 +125,7 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: mysql-backup_prod
   sftp:
-    image: gabrielcossette/sftp-docker:alpine-3.7
+    image: gabrielcossette/sftp-docker
     environment:
       USER: admin
       PASS_FILE: /run/secrets/${CLIENT}_PW

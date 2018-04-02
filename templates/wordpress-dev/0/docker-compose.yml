@@ -14,7 +14,7 @@ volumes:
     driver: local
 services:
   phpmyadmin:
-    image: gabrielcossette/phpmyadmin-docker
+    image: gabrielcossette/phpmyadmin-docker:dev
     links:
     - mysql:db
     labels:
@@ -22,7 +22,7 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: phpmyadmin_dev
   pydio:
-    image: gabrielcossette/pydio-docker
+    image: gabrielcossette/pydio-docker:dev
     environment:
       PGID: 82
       PUID: 82
@@ -42,7 +42,7 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: pydio_dev
   nginx:
-    image: gabrielcossette/nginx-ee-docker
+    image: gabrielcossette/nginx-ee-docker:dev
     environment:
       POST_MAX_SIZE: 2G
       SITE: ${WP_URL}
@@ -55,7 +55,7 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: nginx_dev
   wordpress:
-    image: gabrielcossette/wordpress-docker
+    image: gabrielcossette/wordpress-docker:dev
     environment:
       USER_FILE: /run/secrets/WP_User
       PASS_FILE: /run/secrets/WP_Pass
@@ -91,7 +91,7 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   mysql:
-    image: gabrielcossette/mariadb-docker
+    image: gabrielcossette/mariadb-docker:dev
     environment:
       MYSQL_DATABASE: pydio
       MYSQL_USER: admin
@@ -107,7 +107,7 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: mysql_dev
   mysql-backup:
-    image: gabrielcossette/backup-all-mysql
+    image: gabrielcossette/backup-all-mysql:dev
     environment:
       BACKUP_INTERVAL: 86400
       BACKUP_FIRSTDELAY: 60
@@ -125,7 +125,7 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: mysql-backup_dev
   sftp:
-    image: gabrielcossette/sftp-docker:alpine-3.7
+    image: gabrielcossette/sftp-docker:dev
     environment:
       USER: admin
       PASS_FILE: /run/secrets/${CLIENT}_PW
@@ -182,7 +182,7 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
   redis:
-    image: gabrielcossette/redis-docker
+    image: gabrielcossette/redis-docker:dev
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
