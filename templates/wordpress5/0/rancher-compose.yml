@@ -100,18 +100,23 @@ services:
     scale: 1
     start_on_create: true
   wordpress:
+    retain_ip: true
     scale: 1
     start_on_create: true
   wordpress2:
+    retain_ip: true
     scale: 1
     start_on_create: true
   wordpress3:
+    retain_ip: true
     scale: 1
     start_on_create: true
   wordpress4:
+    retain_ip: true
     scale: 1
     start_on_create: true
   wordpress5:
+    retain_ip: true
     scale: 1
     start_on_create: true
   LB:
