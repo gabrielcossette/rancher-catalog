@@ -29,14 +29,14 @@ services:
       PYDIO_PASSWORD_FILE: /run/secrets/${CLIENT}_PW
       PYDIO_DB_HOST: mysql
       PYDIO_DB_NAME: pydio
-      PYDIO_DB_USER: root
-      PYDIO_DB_PASSWORD_FILE: /run/secrets/DB_Root
+      PYDIO_DB_USER: pydio
+      PYDIO_DB_PASSWORD_FILE: /run/secrets/${CLIENT}_PYDIO_PW
     volumes:
     - ${CLIENT}_pydio:/data
     - ${CLIENT}_wp_data:/wp
     secrets:
     - ${CLIENT}_PW
-    - DB_Root
+    - ${CLIENT}_PYDIO_PW
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
@@ -61,7 +61,7 @@ services:
       PASS_FILE: /run/secrets/WP_Pass
       SITE: https://${WP_URL}
       EMAIL: ${WP_EMAIL}
-      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_Root
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/${CLIENT}_WP_PW
       WORDPRESS_DB_NAME: wordpress
       EMAIL_FROM: ${EMAIL_FROM}
       EMAIL_SERVER: ${EMAIL_SERVER}
@@ -71,10 +71,10 @@ services:
     volumes:
     - ${CLIENT}_wp_data:/var/www/html
     secrets:
-    - DB_Root
     - WP_User
     - WP_Pass
     - ${CLIENT}_Email_PW
+    - ${CLIENT}_WP_PW
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
@@ -93,14 +93,25 @@ services:
   mysql:
     image: gabrielcossette/mariadb-docker:dev
     environment:
-      MYSQL_DATABASE: pydio
-      MYSQL_USER: admin
-      MYSQL_PASSWORD_FILE: /run/secrets/${CLIENT}_PW
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/DB_Root
+      MYSQL_DATABASE_WP: wordpress
+      MYSQL_DATABASE_PYDIO: pydio
+      MYSQL_DATABASE_PMA: phpmyadmin
+      MYSQL_USER_ADMIN: admin
+      MYSQL_USER_WP: wordpress
+      MYSQL_USER_PYDIO: pydio
+      MYSQL_USER_PMA: phpmyadmin
+      MYSQL_PASSWORD_ADMIN_FILE: /run/secrets/${CLIENT}_PW
+      MYSQL_PASSWORD_WP_FILE: /run/secrets/${CLIENT}_WP_PW
+      MYSQL_PASSWORD_PYDIO_FILE: /run/secrets/${CLIENT}_PYDIO_PW
+      MYSQL_PASSWORD_PMA_FILE: /run/secrets/${CLIENT}_PMA_PW
     volumes:
     - ${CLIENT}_wp_db:/var/lib/mysql
     secrets:
     - ${CLIENT}_PW
+    - ${CLIENT}_WP_PW
+    - ${CLIENT}_PYDIO_PW
+    - ${CLIENT}_PMA_PW
     - DB_Root
     labels:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
