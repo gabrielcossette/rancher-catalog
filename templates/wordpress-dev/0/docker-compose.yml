@@ -68,6 +68,7 @@ services:
       EMAIL: ${WP_EMAIL}
       WORDPRESS_DB_PASSWORD_FILE: /run/secrets/${CLIENT}_WP_PW
       WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
       EMAIL_FROM: ${EMAIL_FROM}
       EMAIL_SERVER: ${EMAIL_SERVER}
       EMAIL_PORT: ${EMAIL_PORT}
