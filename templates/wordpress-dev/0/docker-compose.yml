@@ -21,9 +21,6 @@ services:
       io.rancher.scheduler.affinity:host_label: Name=${CLIENT}
       io.rancher.container.pull_image: always
       Upgrade: phpmyadmin_dev
-    environment:
-      PMA_USER: phpmyadmin
-      PMA_PASSWORD: /run/secrets/${CLIENT}_PMA_PW
     secrets:
     - ${CLIENT}_PMA_PW      
   pydio:
