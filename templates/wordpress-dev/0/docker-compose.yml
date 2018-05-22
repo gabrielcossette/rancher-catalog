@@ -25,7 +25,7 @@ services:
       PMA_PMADB: phpmyadmin
       PMA_CONTROLUSER: phpmyadmin
       PMA_CONTROLHOST: mysql
-      CONFIG_PASS: /run/secrets/${CLIENT}_PMA_PW
+      CONFIG_PASS_FILE: /run/secrets/${CLIENT}_PMA_PW
     secrets:
     - ${CLIENT}_PMA_PW      
   pydio:
