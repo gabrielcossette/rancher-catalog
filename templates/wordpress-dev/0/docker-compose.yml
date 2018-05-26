@@ -79,6 +79,9 @@ services:
       PYDIO_PASSWORD1_FILE: /run/secrets/${CLIENT}_PW1
       PYDIO_PASSWORD2_FILE: /run/secrets/${CLIENT}_PW2
       PYDIO_PASSWORD3_FILE: /run/secrets/${CLIENT}_PW3
+      PYDIO_SECRET1_FILE: /run/secrets/${CLIENT}_SECRET1
+      PYDIO_SECRET2_FILE: /run/secrets/${CLIENT}_SECRET2
+      PYDIO_SECRET3_FILE: /run/secrets/${CLIENT}_SECRET3
       PYDIO_DB_HOST: mysql
       PYDIO_DB_NAME: pydio
       PYDIO_DB_USER: pydio
