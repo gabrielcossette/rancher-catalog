@@ -175,15 +175,30 @@ services:
       io.rancher.container.pull_image: always
       Upgrade: mysql-backup_dev
   sftp:
-    image: gabrielcossette/sftp-docker:dev
+    image: gabrielcossette/sftp-totp-docker:dev
     environment:
-      USER: admin
-      PASS_FILE: /run/secrets/${CLIENT}_PW1
+      SFTP_USER1_FILE: /run/secrets/${CLIENT}_USER1
+      SFTP_USER2_FILE: /run/secrets/${CLIENT}_USER2
+      SFTP_USER3_FILE: /run/secrets/${CLIENT}_USER3
+      SFTP_PASSWORD1_FILE: /run/secrets/${CLIENT}_PW1
+      SFTP_PASSWORD2_FILE: /run/secrets/${CLIENT}_PW2
+      SFTP_PASSWORD3_FILE: /run/secrets/${CLIENT}_PW3
+      SFTP_SECRET1_FILE: /run/secrets/${CLIENT}_SECRET1
+      SFTP_SECRET2_FILE: /run/secrets/${CLIENT}_SECRET2
+      SFTP_SECRET3_FILE: /run/secrets/${CLIENT}_SECRET3
       UID: 82
     volumes:
     - ${CLIENT}_wp_data:/home/admin/wp
     secrets:
+    - ${CLIENT}_USER1
+    - ${CLIENT}_USER2
+    - ${CLIENT}_USER3
     - ${CLIENT}_PW1
+    - ${CLIENT}_PW2
+    - ${CLIENT}_PW3
+    - ${CLIENT}_SECRET1
+    - ${CLIENT}_SECRET2
+    - ${CLIENT}_SECRET3
     command:
     - admin::82
     labels:
