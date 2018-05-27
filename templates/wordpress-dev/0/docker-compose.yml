@@ -20,16 +20,18 @@ services:
       MYSQL_DATABASE_WP: wordpress
       MYSQL_DATABASE_PYDIO: pydio
       MYSQL_DATABASE_PMA: phpmyadmin
-      MYSQL_USER_USER1: /run/secrets/${CLIENT}_USER1
-      MYSQL_USER_USER2: /run/secrets/${CLIENT}_USER2
-      MYSQL_USER_USER3: /run/secrets/${CLIENT}_USER3
-      MYSQL_SECRET_USER1: /run/secrets/${CLIENT}_SECRET1
-      MYSQL_SECRET_USER2: /run/secrets/${CLIENT}_SECRET2
-      MYSQL_SECRET_USER3: /run/secrets/${CLIENT}_SECRET3
+      MYSQL_USER_USER1_FILE: /run/secrets/${CLIENT}_USER1
+      MYSQL_USER_USER2_FILE: /run/secrets/${CLIENT}_USER2
+      MYSQL_USER_USER3_FILE: /run/secrets/${CLIENT}_USER3
+      MYSQL_PASSWORD_USER1_FILE: /run/secrets/${CLIENT}_PW1
+      MYSQL_PASSWORD_USER2_FILE: /run/secrets/${CLIENT}_PW2
+      MYSQL_PASSWORD_USER3_FILE: /run/secrets/${CLIENT}_PW3
+      MYSQL_SECRET_USER1_FILE: /run/secrets/${CLIENT}_SECRET1
+      MYSQL_SECRET_USER2_FILE: /run/secrets/${CLIENT}_SECRET2
+      MYSQL_SECRET_USER3_FILE: /run/secrets/${CLIENT}_SECRET3
       MYSQL_USER_WP: wordpress
       MYSQL_USER_PYDIO: pydio
       MYSQL_USER_PMA: phpmyadmin
-      MYSQL_PASSWORD_ADMIN_FILE: /run/secrets/${CLIENT}_PW
       MYSQL_PASSWORD_WP_FILE: /run/secrets/${CLIENT}_WP_PW
       MYSQL_PASSWORD_PYDIO_FILE: /run/secrets/${CLIENT}_PYDIO_PW
       MYSQL_PASSWORD_PMA_FILE: /run/secrets/${CLIENT}_PMA_PW
@@ -176,12 +178,12 @@ services:
     image: gabrielcossette/sftp-docker:dev
     environment:
       USER: admin
-      PASS_FILE: /run/secrets/${CLIENT}_PW
+      PASS_FILE: /run/secrets/${CLIENT}_PW1
       UID: 82
     volumes:
     - ${CLIENT}_wp_data:/home/admin/wp
     secrets:
-    - ${CLIENT}_PW
+    - ${CLIENT}_PW1
     command:
     - admin::82
     labels:
