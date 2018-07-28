@@ -188,7 +188,7 @@ services:
       SFTP_SECRET3_FILE: /run/secrets/${CLIENT}_SECRET3
       UID: 82
     volumes:
-    - ${CLIENT}_wp_data:/home/admin/wp
+    - ${CLIENT}_wp_data:/sites/wp
     secrets:
     - ${CLIENT}_USER1
     - ${CLIENT}_USER2
